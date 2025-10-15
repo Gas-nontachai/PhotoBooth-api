@@ -1,0 +1,10 @@
+**/.git
+**/.github
+**/node_modules
+**/.DS_Store
+**/*.md
+**/*.log
+bin/
+build/
+.env
+vendor/
