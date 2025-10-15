@@ -1,0 +1,2061 @@
+basePath: /api
+definitions:
+  cmd.AnalyticsEvent:
+    properties:
+      boothID:
+        type: string
+      createdAt:
+        type: string
+      eventName:
+        type: string
+      id:
+        type: string
+      payload:
+        additionalProperties: {}
+        type: object
+      sessionID:
+        type: string
+    type: object
+  cmd.Booth:
+    properties:
+      branchID:
+        type: string
+      config:
+        additionalProperties: {}
+        type: object
+      createdAt:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      status:
+        $ref: '#/definitions/go-ddd-clean_internal_domain_booth.BoothStatus'
+      tokenVersion:
+        type: integer
+      type:
+        $ref: '#/definitions/go-ddd-clean_internal_domain_booth.BoothType'
+    type: object
+  cmd.BoothAnalyticsEventRequest:
+    properties:
+      event_name:
+        type: string
+      payload:
+        additionalProperties: {}
+        type: object
+      session_id:
+        type: string
+    type: object
+  cmd.BoothCreateRequest:
+    properties:
+      branch_id:
+        type: string
+      config:
+        additionalProperties: {}
+        type: object
+      name:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+    type: object
+  cmd.BoothLog:
+    properties:
+      boothID:
+        type: string
+      createdAt:
+        type: string
+      eventType:
+        type: string
+      id:
+        type: string
+      level:
+        $ref: '#/definitions/go-ddd-clean_internal_domain_logging.Level'
+      message:
+        type: string
+    type: object
+  cmd.BoothLogCreateRequest:
+    properties:
+      event_type:
+        type: string
+      level:
+        type: string
+      message:
+        type: string
+    type: object
+  cmd.BoothTokenRegisterRequest:
+    properties:
+      booth_id:
+        type: string
+      branch_id:
+        type: string
+    type: object
+  cmd.BoothTokenResponse:
+    properties:
+      token:
+        type: string
+    type: object
+  cmd.BoothUpdateRequest:
+    properties:
+      branch_id:
+        type: string
+      config:
+        additionalProperties: {}
+        type: object
+      name:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+    type: object
+  cmd.Branch:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: string
+      location:
+        type: string
+      name:
+        type: string
+    type: object
+  cmd.BranchCreateRequest:
+    properties:
+      location:
+        type: string
+      name:
+        type: string
+    type: object
+  cmd.BranchUpdateRequest:
+    properties:
+      location:
+        type: string
+      name:
+        type: string
+    type: object
+  cmd.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  cmd.Filter:
+    properties:
+      active:
+        type: boolean
+      createdAt:
+        type: string
+      effect:
+        additionalProperties: {}
+        type: object
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  cmd.FilterCreateRequest:
+    properties:
+      active:
+        type: boolean
+      effect:
+        additionalProperties: {}
+        type: object
+      name:
+        type: string
+    type: object
+  cmd.FilterUpdateRequest:
+    properties:
+      active:
+        type: boolean
+      effect:
+        additionalProperties: {}
+        type: object
+      name:
+        type: string
+    type: object
+  cmd.Frame:
+    properties:
+      active:
+        type: boolean
+      createdAt:
+        type: string
+      fileURL:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      theme:
+        type: string
+    type: object
+  cmd.FrameCreateRequest:
+    properties:
+      active:
+        type: boolean
+      file_url:
+        type: string
+      name:
+        type: string
+      theme:
+        type: string
+    type: object
+  cmd.FrameUpdateRequest:
+    properties:
+      active:
+        type: boolean
+      file_url:
+        type: string
+      name:
+        type: string
+      theme:
+        type: string
+    type: object
+  cmd.HealthResponse:
+    properties:
+      status:
+        type: string
+    type: object
+  cmd.Payment:
+    properties:
+      amount:
+        format: float64
+        type: number
+      createdAt:
+        type: string
+      currency:
+        type: string
+      id:
+        type: string
+      method:
+        $ref: '#/definitions/go-ddd-clean_internal_domain_payment.Method'
+      sessionID:
+        type: string
+      status:
+        $ref: '#/definitions/go-ddd-clean_internal_domain_payment.Status'
+      transactionRef:
+        type: string
+    type: object
+  cmd.PaymentCreateRequest:
+    properties:
+      amount:
+        type: number
+      currency:
+        type: string
+      method:
+        type: string
+      session_id:
+        type: string
+      status:
+        type: string
+      transaction_ref:
+        type: string
+    type: object
+  cmd.PaymentUpdateRequest:
+    properties:
+      amount:
+        type: number
+      currency:
+        type: string
+      method:
+        type: string
+      status:
+        type: string
+      transaction_ref:
+        type: string
+    type: object
+  cmd.Photo:
+    properties:
+      composition:
+        additionalProperties: {}
+        type: object
+      createdAt:
+        type: string
+      filterID:
+        type: string
+      frameID:
+        type: string
+      id:
+        type: string
+      renderedURL:
+        type: string
+      sessionID:
+        type: string
+      storageURL:
+        type: string
+    type: object
+  cmd.PhotoCreateRequest:
+    properties:
+      composition:
+        additionalProperties: {}
+        type: object
+      filter_id:
+        type: string
+      frame_id:
+        type: string
+      rendered_url:
+        type: string
+      session_id:
+        type: string
+      storage_url:
+        type: string
+    type: object
+  cmd.PhotoUpdateRequest:
+    properties:
+      composition:
+        additionalProperties: {}
+        type: object
+      filter_id:
+        type: string
+      frame_id:
+        type: string
+      rendered_url:
+        type: string
+      storage_url:
+        type: string
+    type: object
+  cmd.QRCode:
+    properties:
+      createdAt:
+        type: string
+      expireAt:
+        type: string
+      hash:
+        type: string
+      id:
+        type: string
+      photoID:
+        type: string
+    type: object
+  cmd.QRCodeCreateRequest:
+    properties:
+      expire_at:
+        type: integer
+      hash:
+        type: string
+      photo_id:
+        type: string
+    type: object
+  cmd.Session:
+    properties:
+      boothID:
+        type: string
+      boothSnapshot:
+        additionalProperties: {}
+        type: object
+      finishedAt:
+        type: string
+      id:
+        type: string
+      paymentID:
+        type: string
+      phoneTemp:
+        type: string
+      startedAt:
+        type: string
+      status:
+        $ref: '#/definitions/go-ddd-clean_internal_domain_session.Status'
+      totalPrice:
+        format: float64
+        type: number
+      userID:
+        type: string
+      voucherID:
+        type: string
+    type: object
+  cmd.SessionCreateRequest:
+    properties:
+      booth_id:
+        type: string
+      booth_snapshot:
+        additionalProperties: {}
+        type: object
+      payment_id:
+        type: string
+      phone_temp:
+        type: string
+      status:
+        type: string
+      total_price:
+        type: number
+      user_id:
+        type: string
+      voucher_id:
+        type: string
+    type: object
+  cmd.SessionUpdateRequest:
+    properties:
+      booth_snapshot:
+        additionalProperties: {}
+        type: object
+      finished_at:
+        type: integer
+      payment_id:
+        type: string
+      phone_temp:
+        type: string
+      status:
+        type: string
+      total_price:
+        type: number
+      user_id:
+        type: string
+      voucher_id:
+        type: string
+    type: object
+  cmd.User:
+    properties:
+      createdAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      password:
+        type: string
+      points:
+        type: integer
+      role:
+        $ref: '#/definitions/go-ddd-clean_internal_domain_user.Role'
+      tel:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  cmd.UserAdjustPointsRequest:
+    properties:
+      delta:
+        type: integer
+    type: object
+  cmd.UserCreateRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      role:
+        type: string
+      tel:
+        type: string
+    type: object
+  cmd.UserUpdateRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      points:
+        type: integer
+      role:
+        type: string
+      tel:
+        type: string
+    type: object
+  cmd.Voucher:
+    properties:
+      active:
+        type: boolean
+      code:
+        type: string
+      createdAt:
+        type: string
+      id:
+        type: string
+      maxUsage:
+        type: integer
+      type:
+        $ref: '#/definitions/go-ddd-clean_internal_domain_voucher.Type'
+      unit:
+        $ref: '#/definitions/go-ddd-clean_internal_domain_voucher.Unit'
+      usedCount:
+        type: integer
+      validFrom:
+        type: string
+      validTo:
+        type: string
+      value:
+        format: float64
+        type: number
+    type: object
+  cmd.VoucherCreateRequest:
+    properties:
+      active:
+        type: boolean
+      code:
+        type: string
+      max_usage:
+        type: integer
+      type:
+        type: string
+      unit:
+        type: string
+      valid_from:
+        type: integer
+      valid_to:
+        type: integer
+      value:
+        type: number
+    type: object
+  cmd.VoucherRedeemRequest:
+    properties:
+      code:
+        type: string
+      discount:
+        type: number
+      session_id:
+        type: string
+      tel:
+        type: string
+    type: object
+  cmd.VoucherRedeemResponse:
+    properties:
+      redemption:
+        $ref: '#/definitions/cmd.VoucherRedemption'
+      voucher:
+        $ref: '#/definitions/cmd.Voucher'
+    type: object
+  cmd.VoucherRedemption:
+    properties:
+      createdAt:
+        type: string
+      discount:
+        format: float64
+        type: number
+      id:
+        type: string
+      sessionID:
+        type: string
+      tel:
+        type: string
+      voucherID:
+        type: string
+    type: object
+  cmd.VoucherUpdateRequest:
+    properties:
+      active:
+        type: boolean
+      max_usage:
+        type: integer
+      unit:
+        type: string
+      valid_from:
+        type: integer
+      valid_to:
+        type: integer
+      value:
+        type: number
+    type: object
+  go-ddd-clean_internal_domain_booth.BoothStatus:
+    enum:
+    - active
+    - inactive
+    type: string
+    x-enum-varnames:
+    - BoothStatusActive
+    - BoothStatusInactive
+  go-ddd-clean_internal_domain_booth.BoothType:
+    enum:
+    - physical
+    - virtual
+    type: string
+    x-enum-varnames:
+    - BoothTypePhysical
+    - BoothTypeVirtual
+  go-ddd-clean_internal_domain_logging.Level:
+    enum:
+    - info
+    - warn
+    - error
+    type: string
+    x-enum-varnames:
+    - LevelInfo
+    - LevelWarn
+    - LevelError
+  go-ddd-clean_internal_domain_payment.Method:
+    enum:
+    - cash
+    - qr
+    - stripe
+    - points
+    type: string
+    x-enum-varnames:
+    - MethodCash
+    - MethodQR
+    - MethodStripe
+    - MethodPoints
+  go-ddd-clean_internal_domain_payment.Status:
+    enum:
+    - pending
+    - success
+    - failed
+    type: string
+    x-enum-varnames:
+    - StatusPending
+    - StatusSuccess
+    - StatusFailed
+  go-ddd-clean_internal_domain_session.Status:
+    enum:
+    - started
+    - success
+    - failed
+    - cancelled
+    type: string
+    x-enum-varnames:
+    - StatusStarted
+    - StatusSuccess
+    - StatusFailed
+    - StatusCancelled
+  go-ddd-clean_internal_domain_user.Role:
+    enum:
+    - customer
+    - staff
+    - admin
+    type: string
+    x-enum-varnames:
+    - RoleCustomer
+    - RoleStaff
+    - RoleAdmin
+  go-ddd-clean_internal_domain_voucher.Type:
+    enum:
+    - discount
+    - free
+    type: string
+    x-enum-varnames:
+    - TypeDiscount
+    - TypeFree
+  go-ddd-clean_internal_domain_voucher.Unit:
+    enum:
+    - percent
+    - baht
+    - session
+    type: string
+    x-enum-varnames:
+    - UnitPercent
+    - UnitBaht
+    - UnitSession
+info:
+  contact: {}
+  description: API documentation for the go-ddd-clean service.
+  title: Photobooth Platforms API
+  version: "1.0"
+paths:
+  /api/booth/regenerate-token:
+    post:
+      description: สร้างโทเคนใหม่จากโทเคนเดิม
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.BoothTokenResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      security:
+      - BoothTokenAuth: []
+      summary: สร้างโทเคนบูธใหม่
+      tags:
+      - Booth Token
+  /api/booth/register:
+    post:
+      consumes:
+      - application/json
+      description: ขอรับโทเคนสำหรับบูธใหม่
+      parameters:
+      - description: ข้อมูลบูธ
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.BoothTokenRegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.BoothTokenResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ลงทะเบียนบูธ
+      tags:
+      - Booth Token
+  /api/booths:
+    get:
+      parameters:
+      - description: กรองตามสาขา
+        in: query
+        name: branch_id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/cmd.Booth'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ดึงรายการบูธ
+      tags:
+      - Booths
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ข้อมูลบูธ
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.BoothCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/cmd.Booth'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: สร้างบูธใหม่
+      tags:
+      - Booths
+  /api/booths/{id}:
+    delete:
+      parameters:
+      - description: รหัสบูธ
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ลบบูธ
+      tags:
+      - Booths
+    get:
+      parameters:
+      - description: รหัสบูธ
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.Booth'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ดูข้อมูลบูธ
+      tags:
+      - Booths
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: รหัสบูธ
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: ข้อมูลที่ต้องการแก้ไข
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.BoothUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.Booth'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ปรับปรุงข้อมูลบูธ
+      tags:
+      - Booths
+  /api/booths/{id}/analytics:
+    get:
+      parameters:
+      - description: รหัสบูธ
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: จำนวนรายการ (ค่าเริ่มต้น 100)
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/cmd.AnalyticsEvent'
+            type: array
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ดึงข้อมูลการใช้งานบูธ
+      tags:
+      - Booth Analytics
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: รหัสบูธ
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: ข้อมูลเหตุการณ์
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.BoothAnalyticsEventRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/cmd.AnalyticsEvent'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: สร้างข้อมูลการใช้งานบูธ
+      tags:
+      - Booth Analytics
+  /api/booths/{id}/logs:
+    get:
+      parameters:
+      - description: รหัสบูธ
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: จำนวนรายการ (ค่าเริ่มต้น 50)
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/cmd.BoothLog'
+            type: array
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ดึงบันทึกของบูธ
+      tags:
+      - Booth Logs
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: รหัสบูธ
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: ข้อมูลบันทึก
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.BoothLogCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/cmd.BoothLog'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: บันทึกเหตุการณ์ของบูธ
+      tags:
+      - Booth Logs
+  /api/branches:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/cmd.Branch'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ดึงรายการสาขา
+      tags:
+      - Branches
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ข้อมูลสาขา
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.BranchCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/cmd.Branch'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: สร้างสาขาใหม่
+      tags:
+      - Branches
+  /api/branches/{id}:
+    delete:
+      parameters:
+      - description: รหัสสาขา
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ลบสาขา
+      tags:
+      - Branches
+    get:
+      parameters:
+      - description: รหัสสาขา
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.Branch'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ดูข้อมูลสาขา
+      tags:
+      - Branches
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: รหัสสาขา
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: ข้อมูลที่ต้องการแก้ไข
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.BranchUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.Branch'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ปรับปรุงข้อมูลสาขา
+      tags:
+      - Branches
+  /api/media/filters:
+    get:
+      parameters:
+      - description: ดึงเฉพาะที่เปิดใช้งาน
+        in: query
+        name: active
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/cmd.Filter'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ดึงรายการฟิลเตอร์
+      tags:
+      - Media Filters
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ข้อมูลฟิลเตอร์
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.FilterCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/cmd.Filter'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: สร้างฟิลเตอร์
+      tags:
+      - Media Filters
+  /api/media/filters/{id}:
+    delete:
+      parameters:
+      - description: รหัสฟิลเตอร์
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ลบฟิลเตอร์
+      tags:
+      - Media Filters
+    get:
+      parameters:
+      - description: รหัสฟิลเตอร์
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.Filter'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ดูข้อมูลฟิลเตอร์
+      tags:
+      - Media Filters
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: รหัสฟิลเตอร์
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: ข้อมูลที่ต้องแก้ไข
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.FilterUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.Filter'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ปรับปรุงฟิลเตอร์
+      tags:
+      - Media Filters
+  /api/media/frames:
+    get:
+      parameters:
+      - description: ดึงเฉพาะที่เปิดใช้งาน
+        in: query
+        name: active
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/cmd.Frame'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ดึงรายการกรอบรูป
+      tags:
+      - Media Frames
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ข้อมูลกรอบรูป
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.FrameCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/cmd.Frame'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: สร้างกรอบรูป
+      tags:
+      - Media Frames
+  /api/media/frames/{id}:
+    delete:
+      parameters:
+      - description: รหัสกรอบรูป
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ลบกรอบรูป
+      tags:
+      - Media Frames
+    get:
+      parameters:
+      - description: รหัสกรอบรูป
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.Frame'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ดูข้อมูลกรอบรูป
+      tags:
+      - Media Frames
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: รหัสกรอบรูป
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: ข้อมูลที่ต้องแก้ไข
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.FrameUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.Frame'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ปรับปรุงกรอบรูป
+      tags:
+      - Media Frames
+  /api/media/photos:
+    get:
+      parameters:
+      - description: รหัสเซสชัน
+        in: query
+        name: session_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/cmd.Photo'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      security:
+      - BoothTokenAuth: []
+      summary: ดึงรายการรูป
+      tags:
+      - Media Photos
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ข้อมูลรูป
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.PhotoCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/cmd.Photo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      security:
+      - BoothTokenAuth: []
+      summary: สร้างรูปใหม่
+      tags:
+      - Media Photos
+  /api/media/photos/{id}:
+    delete:
+      parameters:
+      - description: รหัสรูป
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      security:
+      - BoothTokenAuth: []
+      summary: ลบรูป
+      tags:
+      - Media Photos
+    get:
+      parameters:
+      - description: รหัสรูป
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.Photo'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      security:
+      - BoothTokenAuth: []
+      summary: ดูข้อมูลรูป
+      tags:
+      - Media Photos
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: รหัสรูป
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: ข้อมูลที่ต้องการแก้ไข
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.PhotoUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.Photo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      security:
+      - BoothTokenAuth: []
+      summary: ปรับปรุงข้อมูลรูป
+      tags:
+      - Media Photos
+  /api/media/qrcodes:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ข้อมูล QR Code
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.QRCodeCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/cmd.QRCode'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: สร้าง QR Code
+      tags:
+      - Media QRCodes
+  /api/media/qrcodes/{hash}:
+    get:
+      parameters:
+      - description: แฮชของ QR Code
+        in: path
+        name: hash
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.QRCode'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ดูข้อมูล QR Code
+      tags:
+      - Media QRCodes
+  /api/media/qrcodes/{id}:
+    delete:
+      parameters:
+      - description: รหัส QR Code
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ลบ QR Code
+      tags:
+      - Media QRCodes
+  /api/payments:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ข้อมูลการชำระเงิน
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.PaymentCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/cmd.Payment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: สร้างข้อมูลการชำระเงิน
+      tags:
+      - Payments
+  /api/payments/{id}:
+    get:
+      parameters:
+      - description: รหัสการชำระเงิน
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.Payment'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ดูข้อมูลการชำระเงิน
+      tags:
+      - Payments
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: รหัสการชำระเงิน
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: ข้อมูลที่ต้องแก้ไข
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.PaymentUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.Payment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ปรับปรุงข้อมูลการชำระเงิน
+      tags:
+      - Payments
+  /api/payments/session/{sessionID}:
+    get:
+      parameters:
+      - description: รหัสเซสชัน
+        in: path
+        name: sessionID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.Payment'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ดูข้อมูลการชำระเงินของเซสชัน
+      tags:
+      - Payments
+  /api/sessions:
+    get:
+      parameters:
+      - description: กรองตามสถานะ
+        in: query
+        name: status
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/cmd.Session'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      security:
+      - BoothTokenAuth: []
+      summary: ดึงรายการเซสชัน
+      tags:
+      - Sessions
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ข้อมูลเซสชัน
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.SessionCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/cmd.Session'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      security:
+      - BoothTokenAuth: []
+      summary: สร้างเซสชัน
+      tags:
+      - Sessions
+  /api/sessions/{id}:
+    delete:
+      parameters:
+      - description: รหัสเซสชัน
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      security:
+      - BoothTokenAuth: []
+      summary: ลบเซสชัน
+      tags:
+      - Sessions
+    get:
+      parameters:
+      - description: รหัสเซสชัน
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.Session'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      security:
+      - BoothTokenAuth: []
+      summary: ดูข้อมูลเซสชัน
+      tags:
+      - Sessions
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: รหัสเซสชัน
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: ข้อมูลที่ต้องการแก้ไข
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.SessionUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.Session'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      security:
+      - BoothTokenAuth: []
+      summary: ปรับปรุงข้อมูลเซสชัน
+      tags:
+      - Sessions
+  /api/sessions/{id}/payment:
+    get:
+      parameters:
+      - description: รหัสเซสชัน
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.Payment'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      security:
+      - BoothTokenAuth: []
+      summary: ดูข้อมูลการชำระเงินของเซสชัน
+      tags:
+      - Sessions
+  /api/sessions/{id}/photos:
+    get:
+      parameters:
+      - description: รหัสเซสชัน
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/cmd.Photo'
+            type: array
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      security:
+      - BoothTokenAuth: []
+      summary: ดึงรายการรูปของเซสชัน
+      tags:
+      - Sessions
+  /api/users:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/cmd.User'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ดึงรายการผู้ใช้
+      tags:
+      - Users
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ข้อมูลผู้ใช้
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.UserCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/cmd.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: สร้างผู้ใช้ใหม่
+      tags:
+      - Users
+  /api/users/{id}:
+    delete:
+      parameters:
+      - description: รหัสผู้ใช้
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ลบผู้ใช้
+      tags:
+      - Users
+    get:
+      parameters:
+      - description: รหัสผู้ใช้
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.User'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ดูข้อมูลผู้ใช้
+      tags:
+      - Users
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: รหัสผู้ใช้
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: ข้อมูลที่ต้องแก้ไข
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.UserUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ปรับปรุงข้อมูลผู้ใช้
+      tags:
+      - Users
+  /api/users/{id}/points:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: รหัสผู้ใช้
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: ค่าที่ต้องการปรับ
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.UserAdjustPointsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ปรับแต้มผู้ใช้
+      tags:
+      - Users
+  /api/vouchers:
+    get:
+      parameters:
+      - description: ดึงเฉพาะที่เปิดใช้งาน
+        in: query
+        name: active
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/cmd.Voucher'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ดึงรายการคูปอง
+      tags:
+      - Vouchers
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ข้อมูลคูปอง
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.VoucherCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/cmd.Voucher'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: สร้างคูปองใหม่
+      tags:
+      - Vouchers
+  /api/vouchers/{id}:
+    delete:
+      parameters:
+      - description: รหัสคูปอง
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ลบคูปอง
+      tags:
+      - Vouchers
+    get:
+      parameters:
+      - description: รหัสคูปอง
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.Voucher'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ดูข้อมูลคูปอง
+      tags:
+      - Vouchers
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: รหัสคูปอง
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: ข้อมูลที่ต้องแก้ไข
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.VoucherUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.Voucher'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ปรับปรุงคูปอง
+      tags:
+      - Vouchers
+  /api/vouchers/code/{code}:
+    get:
+      parameters:
+      - description: รหัสคูปอง
+        in: path
+        name: code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.Voucher'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      summary: ค้นหาคูปองด้วยรหัส
+      tags:
+      - Vouchers
+  /api/vouchers/redeem:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ข้อมูลการใช้งานคูปอง
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.VoucherRedeemRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.VoucherRedeemResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/cmd.ErrorResponse'
+      security:
+      - BoothTokenAuth: []
+      summary: ใช้งานคูปอง
+      tags:
+      - Vouchers
+  /healthz:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cmd.HealthResponse'
+      summary: ตรวจสอบสถานะเซิร์ฟเวอร์
+      tags:
+      - Health
+schemes:
+- http
+securityDefinitions:
+  BoothTokenAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

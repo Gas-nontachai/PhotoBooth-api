@@ -1,0 +1,3167 @@
+{
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "API documentation for the go-ddd-clean service.",
+        "title": "Photobooth Platforms API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "basePath": "/api",
+    "paths": {
+        "/api/booth/regenerate-token": {
+            "post": {
+                "security": [
+                    {
+                        "BoothTokenAuth": []
+                    }
+                ],
+                "description": "สร้างโทเคนใหม่จากโทเคนเดิม",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Booth Token"
+                ],
+                "summary": "สร้างโทเคนบูธใหม่",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.BoothTokenResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/booth/register": {
+            "post": {
+                "description": "ขอรับโทเคนสำหรับบูธใหม่",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Booth Token"
+                ],
+                "summary": "ลงทะเบียนบูธ",
+                "parameters": [
+                    {
+                        "description": "ข้อมูลบูธ",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.BoothTokenRegisterRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.BoothTokenResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/booths": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Booths"
+                ],
+                "summary": "ดึงรายการบูธ",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "กรองตามสาขา",
+                        "name": "branch_id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/cmd.Booth"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Booths"
+                ],
+                "summary": "สร้างบูธใหม่",
+                "parameters": [
+                    {
+                        "description": "ข้อมูลบูธ",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.BoothCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Booth"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/booths/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Booths"
+                ],
+                "summary": "ดูข้อมูลบูธ",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสบูธ",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Booth"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Booths"
+                ],
+                "summary": "ปรับปรุงข้อมูลบูธ",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสบูธ",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "ข้อมูลที่ต้องการแก้ไข",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.BoothUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Booth"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Booths"
+                ],
+                "summary": "ลบบูธ",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสบูธ",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/booths/{id}/analytics": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Booth Analytics"
+                ],
+                "summary": "ดึงข้อมูลการใช้งานบูธ",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสบูธ",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "จำนวนรายการ (ค่าเริ่มต้น 100)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/cmd.AnalyticsEvent"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Booth Analytics"
+                ],
+                "summary": "สร้างข้อมูลการใช้งานบูธ",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสบูธ",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "ข้อมูลเหตุการณ์",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.BoothAnalyticsEventRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.AnalyticsEvent"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/booths/{id}/logs": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Booth Logs"
+                ],
+                "summary": "ดึงบันทึกของบูธ",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสบูธ",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "จำนวนรายการ (ค่าเริ่มต้น 50)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/cmd.BoothLog"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Booth Logs"
+                ],
+                "summary": "บันทึกเหตุการณ์ของบูธ",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสบูธ",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "ข้อมูลบันทึก",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.BoothLogCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.BoothLog"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/branches": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Branches"
+                ],
+                "summary": "ดึงรายการสาขา",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/cmd.Branch"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Branches"
+                ],
+                "summary": "สร้างสาขาใหม่",
+                "parameters": [
+                    {
+                        "description": "ข้อมูลสาขา",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.BranchCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Branch"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/branches/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Branches"
+                ],
+                "summary": "ดูข้อมูลสาขา",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสสาขา",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Branch"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Branches"
+                ],
+                "summary": "ปรับปรุงข้อมูลสาขา",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสสาขา",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "ข้อมูลที่ต้องการแก้ไข",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.BranchUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Branch"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Branches"
+                ],
+                "summary": "ลบสาขา",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสสาขา",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/media/filters": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Media Filters"
+                ],
+                "summary": "ดึงรายการฟิลเตอร์",
+                "parameters": [
+                    {
+                        "type": "boolean",
+                        "description": "ดึงเฉพาะที่เปิดใช้งาน",
+                        "name": "active",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/cmd.Filter"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Media Filters"
+                ],
+                "summary": "สร้างฟิลเตอร์",
+                "parameters": [
+                    {
+                        "description": "ข้อมูลฟิลเตอร์",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.FilterCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Filter"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/media/filters/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Media Filters"
+                ],
+                "summary": "ดูข้อมูลฟิลเตอร์",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสฟิลเตอร์",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Filter"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Media Filters"
+                ],
+                "summary": "ปรับปรุงฟิลเตอร์",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสฟิลเตอร์",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "ข้อมูลที่ต้องแก้ไข",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.FilterUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Filter"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Media Filters"
+                ],
+                "summary": "ลบฟิลเตอร์",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสฟิลเตอร์",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/media/frames": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Media Frames"
+                ],
+                "summary": "ดึงรายการกรอบรูป",
+                "parameters": [
+                    {
+                        "type": "boolean",
+                        "description": "ดึงเฉพาะที่เปิดใช้งาน",
+                        "name": "active",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/cmd.Frame"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Media Frames"
+                ],
+                "summary": "สร้างกรอบรูป",
+                "parameters": [
+                    {
+                        "description": "ข้อมูลกรอบรูป",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.FrameCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Frame"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/media/frames/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Media Frames"
+                ],
+                "summary": "ดูข้อมูลกรอบรูป",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสกรอบรูป",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Frame"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Media Frames"
+                ],
+                "summary": "ปรับปรุงกรอบรูป",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสกรอบรูป",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "ข้อมูลที่ต้องแก้ไข",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.FrameUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Frame"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Media Frames"
+                ],
+                "summary": "ลบกรอบรูป",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสกรอบรูป",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/media/photos": {
+            "get": {
+                "security": [
+                    {
+                        "BoothTokenAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Media Photos"
+                ],
+                "summary": "ดึงรายการรูป",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสเซสชัน",
+                        "name": "session_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/cmd.Photo"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BoothTokenAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Media Photos"
+                ],
+                "summary": "สร้างรูปใหม่",
+                "parameters": [
+                    {
+                        "description": "ข้อมูลรูป",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.PhotoCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Photo"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/media/photos/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BoothTokenAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Media Photos"
+                ],
+                "summary": "ดูข้อมูลรูป",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสรูป",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Photo"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BoothTokenAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Media Photos"
+                ],
+                "summary": "ปรับปรุงข้อมูลรูป",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสรูป",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "ข้อมูลที่ต้องการแก้ไข",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.PhotoUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Photo"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BoothTokenAuth": []
+                    }
+                ],
+                "tags": [
+                    "Media Photos"
+                ],
+                "summary": "ลบรูป",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสรูป",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/media/qrcodes": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Media QRCodes"
+                ],
+                "summary": "สร้าง QR Code",
+                "parameters": [
+                    {
+                        "description": "ข้อมูล QR Code",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.QRCodeCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.QRCode"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/media/qrcodes/{hash}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Media QRCodes"
+                ],
+                "summary": "ดูข้อมูล QR Code",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "แฮชของ QR Code",
+                        "name": "hash",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.QRCode"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/media/qrcodes/{id}": {
+            "delete": {
+                "tags": [
+                    "Media QRCodes"
+                ],
+                "summary": "ลบ QR Code",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัส QR Code",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/payments": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "สร้างข้อมูลการชำระเงิน",
+                "parameters": [
+                    {
+                        "description": "ข้อมูลการชำระเงิน",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.PaymentCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Payment"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/payments/session/{sessionID}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "ดูข้อมูลการชำระเงินของเซสชัน",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสเซสชัน",
+                        "name": "sessionID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Payment"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/payments/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "ดูข้อมูลการชำระเงิน",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสการชำระเงิน",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Payment"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "ปรับปรุงข้อมูลการชำระเงิน",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสการชำระเงิน",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "ข้อมูลที่ต้องแก้ไข",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.PaymentUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Payment"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sessions": {
+            "get": {
+                "security": [
+                    {
+                        "BoothTokenAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Sessions"
+                ],
+                "summary": "ดึงรายการเซสชัน",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "กรองตามสถานะ",
+                        "name": "status",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/cmd.Session"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BoothTokenAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Sessions"
+                ],
+                "summary": "สร้างเซสชัน",
+                "parameters": [
+                    {
+                        "description": "ข้อมูลเซสชัน",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.SessionCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Session"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sessions/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BoothTokenAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Sessions"
+                ],
+                "summary": "ดูข้อมูลเซสชัน",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสเซสชัน",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Session"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BoothTokenAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Sessions"
+                ],
+                "summary": "ปรับปรุงข้อมูลเซสชัน",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสเซสชัน",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "ข้อมูลที่ต้องการแก้ไข",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.SessionUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Session"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BoothTokenAuth": []
+                    }
+                ],
+                "tags": [
+                    "Sessions"
+                ],
+                "summary": "ลบเซสชัน",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสเซสชัน",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sessions/{id}/payment": {
+            "get": {
+                "security": [
+                    {
+                        "BoothTokenAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Sessions"
+                ],
+                "summary": "ดูข้อมูลการชำระเงินของเซสชัน",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสเซสชัน",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Payment"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sessions/{id}/photos": {
+            "get": {
+                "security": [
+                    {
+                        "BoothTokenAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Sessions"
+                ],
+                "summary": "ดึงรายการรูปของเซสชัน",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสเซสชัน",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/cmd.Photo"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "ดึงรายการผู้ใช้",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/cmd.User"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "สร้างผู้ใช้ใหม่",
+                "parameters": [
+                    {
+                        "description": "ข้อมูลผู้ใช้",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.UserCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.User"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "ดูข้อมูลผู้ใช้",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสผู้ใช้",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.User"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "ปรับปรุงข้อมูลผู้ใช้",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสผู้ใช้",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "ข้อมูลที่ต้องแก้ไข",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.UserUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.User"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "ลบผู้ใช้",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสผู้ใช้",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/{id}/points": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "ปรับแต้มผู้ใช้",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสผู้ใช้",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "ค่าที่ต้องการปรับ",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.UserAdjustPointsRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.User"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/vouchers": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Vouchers"
+                ],
+                "summary": "ดึงรายการคูปอง",
+                "parameters": [
+                    {
+                        "type": "boolean",
+                        "description": "ดึงเฉพาะที่เปิดใช้งาน",
+                        "name": "active",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/cmd.Voucher"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Vouchers"
+                ],
+                "summary": "สร้างคูปองใหม่",
+                "parameters": [
+                    {
+                        "description": "ข้อมูลคูปอง",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.VoucherCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Voucher"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/vouchers/code/{code}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Vouchers"
+                ],
+                "summary": "ค้นหาคูปองด้วยรหัส",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสคูปอง",
+                        "name": "code",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Voucher"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/vouchers/redeem": {
+            "post": {
+                "security": [
+                    {
+                        "BoothTokenAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Vouchers"
+                ],
+                "summary": "ใช้งานคูปอง",
+                "parameters": [
+                    {
+                        "description": "ข้อมูลการใช้งานคูปอง",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.VoucherRedeemRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.VoucherRedeemResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/vouchers/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Vouchers"
+                ],
+                "summary": "ดูข้อมูลคูปอง",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสคูปอง",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Voucher"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Vouchers"
+                ],
+                "summary": "ปรับปรุงคูปอง",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสคูปอง",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "ข้อมูลที่ต้องแก้ไข",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cmd.VoucherUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.Voucher"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Vouchers"
+                ],
+                "summary": "ลบคูปอง",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสคูปอง",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/healthz": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Health"
+                ],
+                "summary": "ตรวจสอบสถานะเซิร์ฟเวอร์",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/cmd.HealthResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "cmd.AnalyticsEvent": {
+            "type": "object",
+            "properties": {
+                "boothID": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "eventName": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "payload": {
+                    "type": "object",
+                    "additionalProperties": {}
+                },
+                "sessionID": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.Booth": {
+            "type": "object",
+            "properties": {
+                "branchID": {
+                    "type": "string"
+                },
+                "config": {
+                    "type": "object",
+                    "additionalProperties": {}
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/go-ddd-clean_internal_domain_booth.BoothStatus"
+                },
+                "tokenVersion": {
+                    "type": "integer"
+                },
+                "type": {
+                    "$ref": "#/definitions/go-ddd-clean_internal_domain_booth.BoothType"
+                }
+            }
+        },
+        "cmd.BoothAnalyticsEventRequest": {
+            "type": "object",
+            "properties": {
+                "event_name": {
+                    "type": "string"
+                },
+                "payload": {
+                    "type": "object",
+                    "additionalProperties": {}
+                },
+                "session_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.BoothCreateRequest": {
+            "type": "object",
+            "properties": {
+                "branch_id": {
+                    "type": "string"
+                },
+                "config": {
+                    "type": "object",
+                    "additionalProperties": {}
+                },
+                "name": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.BoothLog": {
+            "type": "object",
+            "properties": {
+                "boothID": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "eventType": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "level": {
+                    "$ref": "#/definitions/go-ddd-clean_internal_domain_logging.Level"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.BoothLogCreateRequest": {
+            "type": "object",
+            "properties": {
+                "event_type": {
+                    "type": "string"
+                },
+                "level": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.BoothTokenRegisterRequest": {
+            "type": "object",
+            "properties": {
+                "booth_id": {
+                    "type": "string"
+                },
+                "branch_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.BoothTokenResponse": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.BoothUpdateRequest": {
+            "type": "object",
+            "properties": {
+                "branch_id": {
+                    "type": "string"
+                },
+                "config": {
+                    "type": "object",
+                    "additionalProperties": {}
+                },
+                "name": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.Branch": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.BranchCreateRequest": {
+            "type": "object",
+            "properties": {
+                "location": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.BranchUpdateRequest": {
+            "type": "object",
+            "properties": {
+                "location": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.Filter": {
+            "type": "object",
+            "properties": {
+                "active": {
+                    "type": "boolean"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "effect": {
+                    "type": "object",
+                    "additionalProperties": {}
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.FilterCreateRequest": {
+            "type": "object",
+            "properties": {
+                "active": {
+                    "type": "boolean"
+                },
+                "effect": {
+                    "type": "object",
+                    "additionalProperties": {}
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.FilterUpdateRequest": {
+            "type": "object",
+            "properties": {
+                "active": {
+                    "type": "boolean"
+                },
+                "effect": {
+                    "type": "object",
+                    "additionalProperties": {}
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.Frame": {
+            "type": "object",
+            "properties": {
+                "active": {
+                    "type": "boolean"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "fileURL": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "theme": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.FrameCreateRequest": {
+            "type": "object",
+            "properties": {
+                "active": {
+                    "type": "boolean"
+                },
+                "file_url": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "theme": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.FrameUpdateRequest": {
+            "type": "object",
+            "properties": {
+                "active": {
+                    "type": "boolean"
+                },
+                "file_url": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "theme": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.HealthResponse": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.Payment": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number",
+                    "format": "float64"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "currency": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "method": {
+                    "$ref": "#/definitions/go-ddd-clean_internal_domain_payment.Method"
+                },
+                "sessionID": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/go-ddd-clean_internal_domain_payment.Status"
+                },
+                "transactionRef": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.PaymentCreateRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number"
+                },
+                "currency": {
+                    "type": "string"
+                },
+                "method": {
+                    "type": "string"
+                },
+                "session_id": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "transaction_ref": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.PaymentUpdateRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number"
+                },
+                "currency": {
+                    "type": "string"
+                },
+                "method": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "transaction_ref": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.Photo": {
+            "type": "object",
+            "properties": {
+                "composition": {
+                    "type": "object",
+                    "additionalProperties": {}
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "filterID": {
+                    "type": "string"
+                },
+                "frameID": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "renderedURL": {
+                    "type": "string"
+                },
+                "sessionID": {
+                    "type": "string"
+                },
+                "storageURL": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.PhotoCreateRequest": {
+            "type": "object",
+            "properties": {
+                "composition": {
+                    "type": "object",
+                    "additionalProperties": {}
+                },
+                "filter_id": {
+                    "type": "string"
+                },
+                "frame_id": {
+                    "type": "string"
+                },
+                "rendered_url": {
+                    "type": "string"
+                },
+                "session_id": {
+                    "type": "string"
+                },
+                "storage_url": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.PhotoUpdateRequest": {
+            "type": "object",
+            "properties": {
+                "composition": {
+                    "type": "object",
+                    "additionalProperties": {}
+                },
+                "filter_id": {
+                    "type": "string"
+                },
+                "frame_id": {
+                    "type": "string"
+                },
+                "rendered_url": {
+                    "type": "string"
+                },
+                "storage_url": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.QRCode": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "expireAt": {
+                    "type": "string"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "photoID": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.QRCodeCreateRequest": {
+            "type": "object",
+            "properties": {
+                "expire_at": {
+                    "type": "integer"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "photo_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.Session": {
+            "type": "object",
+            "properties": {
+                "boothID": {
+                    "type": "string"
+                },
+                "boothSnapshot": {
+                    "type": "object",
+                    "additionalProperties": {}
+                },
+                "finishedAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "paymentID": {
+                    "type": "string"
+                },
+                "phoneTemp": {
+                    "type": "string"
+                },
+                "startedAt": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/go-ddd-clean_internal_domain_session.Status"
+                },
+                "totalPrice": {
+                    "type": "number",
+                    "format": "float64"
+                },
+                "userID": {
+                    "type": "string"
+                },
+                "voucherID": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.SessionCreateRequest": {
+            "type": "object",
+            "properties": {
+                "booth_id": {
+                    "type": "string"
+                },
+                "booth_snapshot": {
+                    "type": "object",
+                    "additionalProperties": {}
+                },
+                "payment_id": {
+                    "type": "string"
+                },
+                "phone_temp": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "total_price": {
+                    "type": "number"
+                },
+                "user_id": {
+                    "type": "string"
+                },
+                "voucher_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.SessionUpdateRequest": {
+            "type": "object",
+            "properties": {
+                "booth_snapshot": {
+                    "type": "object",
+                    "additionalProperties": {}
+                },
+                "finished_at": {
+                    "type": "integer"
+                },
+                "payment_id": {
+                    "type": "string"
+                },
+                "phone_temp": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "total_price": {
+                    "type": "number"
+                },
+                "user_id": {
+                    "type": "string"
+                },
+                "voucher_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.User": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "points": {
+                    "type": "integer"
+                },
+                "role": {
+                    "$ref": "#/definitions/go-ddd-clean_internal_domain_user.Role"
+                },
+                "tel": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.UserAdjustPointsRequest": {
+            "type": "object",
+            "properties": {
+                "delta": {
+                    "type": "integer"
+                }
+            }
+        },
+        "cmd.UserCreateRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "tel": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.UserUpdateRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "points": {
+                    "type": "integer"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "tel": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.Voucher": {
+            "type": "object",
+            "properties": {
+                "active": {
+                    "type": "boolean"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "maxUsage": {
+                    "type": "integer"
+                },
+                "type": {
+                    "$ref": "#/definitions/go-ddd-clean_internal_domain_voucher.Type"
+                },
+                "unit": {
+                    "$ref": "#/definitions/go-ddd-clean_internal_domain_voucher.Unit"
+                },
+                "usedCount": {
+                    "type": "integer"
+                },
+                "validFrom": {
+                    "type": "string"
+                },
+                "validTo": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number",
+                    "format": "float64"
+                }
+            }
+        },
+        "cmd.VoucherCreateRequest": {
+            "type": "object",
+            "properties": {
+                "active": {
+                    "type": "boolean"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "max_usage": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "unit": {
+                    "type": "string"
+                },
+                "valid_from": {
+                    "type": "integer"
+                },
+                "valid_to": {
+                    "type": "integer"
+                },
+                "value": {
+                    "type": "number"
+                }
+            }
+        },
+        "cmd.VoucherRedeemRequest": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "discount": {
+                    "type": "number"
+                },
+                "session_id": {
+                    "type": "string"
+                },
+                "tel": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.VoucherRedeemResponse": {
+            "type": "object",
+            "properties": {
+                "redemption": {
+                    "$ref": "#/definitions/cmd.VoucherRedemption"
+                },
+                "voucher": {
+                    "$ref": "#/definitions/cmd.Voucher"
+                }
+            }
+        },
+        "cmd.VoucherRedemption": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "discount": {
+                    "type": "number",
+                    "format": "float64"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "sessionID": {
+                    "type": "string"
+                },
+                "tel": {
+                    "type": "string"
+                },
+                "voucherID": {
+                    "type": "string"
+                }
+            }
+        },
+        "cmd.VoucherUpdateRequest": {
+            "type": "object",
+            "properties": {
+                "active": {
+                    "type": "boolean"
+                },
+                "max_usage": {
+                    "type": "integer"
+                },
+                "unit": {
+                    "type": "string"
+                },
+                "valid_from": {
+                    "type": "integer"
+                },
+                "valid_to": {
+                    "type": "integer"
+                },
+                "value": {
+                    "type": "number"
+                }
+            }
+        },
+        "go-ddd-clean_internal_domain_booth.BoothStatus": {
+            "type": "string",
+            "enum": [
+                "active",
+                "inactive"
+            ],
+            "x-enum-varnames": [
+                "BoothStatusActive",
+                "BoothStatusInactive"
+            ]
+        },
+        "go-ddd-clean_internal_domain_booth.BoothType": {
+            "type": "string",
+            "enum": [
+                "physical",
+                "virtual"
+            ],
+            "x-enum-varnames": [
+                "BoothTypePhysical",
+                "BoothTypeVirtual"
+            ]
+        },
+        "go-ddd-clean_internal_domain_logging.Level": {
+            "type": "string",
+            "enum": [
+                "info",
+                "warn",
+                "error"
+            ],
+            "x-enum-varnames": [
+                "LevelInfo",
+                "LevelWarn",
+                "LevelError"
+            ]
+        },
+        "go-ddd-clean_internal_domain_payment.Method": {
+            "type": "string",
+            "enum": [
+                "cash",
+                "qr",
+                "stripe",
+                "points"
+            ],
+            "x-enum-varnames": [
+                "MethodCash",
+                "MethodQR",
+                "MethodStripe",
+                "MethodPoints"
+            ]
+        },
+        "go-ddd-clean_internal_domain_payment.Status": {
+            "type": "string",
+            "enum": [
+                "pending",
+                "success",
+                "failed"
+            ],
+            "x-enum-varnames": [
+                "StatusPending",
+                "StatusSuccess",
+                "StatusFailed"
+            ]
+        },
+        "go-ddd-clean_internal_domain_session.Status": {
+            "type": "string",
+            "enum": [
+                "started",
+                "success",
+                "failed",
+                "cancelled"
+            ],
+            "x-enum-varnames": [
+                "StatusStarted",
+                "StatusSuccess",
+                "StatusFailed",
+                "StatusCancelled"
+            ]
+        },
+        "go-ddd-clean_internal_domain_user.Role": {
+            "type": "string",
+            "enum": [
+                "customer",
+                "staff",
+                "admin"
+            ],
+            "x-enum-varnames": [
+                "RoleCustomer",
+                "RoleStaff",
+                "RoleAdmin"
+            ]
+        },
+        "go-ddd-clean_internal_domain_voucher.Type": {
+            "type": "string",
+            "enum": [
+                "discount",
+                "free"
+            ],
+            "x-enum-varnames": [
+                "TypeDiscount",
+                "TypeFree"
+            ]
+        },
+        "go-ddd-clean_internal_domain_voucher.Unit": {
+            "type": "string",
+            "enum": [
+                "percent",
+                "baht",
+                "session"
+            ],
+            "x-enum-varnames": [
+                "UnitPercent",
+                "UnitBaht",
+                "UnitSession"
+            ]
+        }
+    },
+    "securityDefinitions": {
+        "BoothTokenAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}
